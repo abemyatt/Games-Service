@@ -2,6 +2,7 @@ package abemyatt.games.controller;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import abemyatt.games.GameTestParent;
@@ -24,7 +25,7 @@ class GameControllerTest  extends GameTestParent {
     private GameController controller;
 
     @Test
-    void testGetGameWithIdSuccess() {
+    void testFindGameByIdSuccess() {
         // Given
         when(service.findById(anyString())).thenReturn(game);
         Game expected = game;
@@ -34,6 +35,18 @@ class GameControllerTest  extends GameTestParent {
 
         // Then
         assertThat(expected, is(actual));
+    }
+    @Test
+    void testFindGameByIdNull() {
+        // Given
+        when(service.findById(anyString())).thenReturn(null);
+
+
+        // When
+        Game actual = controller.findGameById("1");
+
+        // Then
+        assertNull(actual);
     }
 
     @Test
@@ -47,6 +60,18 @@ class GameControllerTest  extends GameTestParent {
 
         // Then
         assertThat(expected, is(actual));
+    }
+    @Test
+    void testGetGameSummaryNull() {
+        // Given
+        when(service.getGameSummary()).thenReturn(null);
+
+
+        // When
+        Summary actual = controller.getGameSummary();
+
+        // Then
+        assertNull(actual);
     }
 
 }
