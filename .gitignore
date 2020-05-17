@@ -16,3 +16,8 @@ bin/
 # Mac files
 .DS_Store
 ._*
+mvnw
+
+mvnw.cmd
+
+HELP.md
