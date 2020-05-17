@@ -2,9 +2,9 @@
 A SpringBoot REST API which returns stored information from MongoDB about games.
 
 ## Prerequisites
-[Java 8](https://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html) - Language of Choice is Java 8
-[Maven](https://maven.apache.org/) - Dependency Management
-[MongoDB](https://www.mongodb.com/) - Uses MongoRepository to access data
+* [Java 8](https://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html) - Language of Choice is Java 8
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [MongoDB](https://www.mongodb.com/) - Uses MongoRepository to access data
 
 ## Using the program
 Start MongoDB on port 27017 by typing the following command
