@@ -2,18 +2,17 @@ package abemyatt.games.controller;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import abemyatt.games.GameTestParent;
-import abemyatt.games.model.Game;
-import abemyatt.games.model.Summary;
 import abemyatt.games.service.GameServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
 class GameControllerTest  extends GameTestParent {
@@ -28,50 +27,50 @@ class GameControllerTest  extends GameTestParent {
     void testFindGameByIdSuccess() {
         // Given
         when(service.findById(anyString())).thenReturn(game);
-        Game expected = game;
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.OK).body(game);
 
         // When
-        Game actual = controller.findGameById("1");
+        ResponseEntity actual = controller.findGameById("1");
 
         // Then
         assertThat(expected, is(actual));
     }
     @Test
-    void testFindGameByIdNull() {
+    void testFindGameByIdNotFound() {
         // Given
         when(service.findById(anyString())).thenReturn(null);
-
+        ResponseEntity expected = new ResponseEntity(HttpStatus.NOT_FOUND);
 
         // When
-        Game actual = controller.findGameById("1");
+        ResponseEntity actual = controller.findGameById("1");
 
         // Then
-        assertNull(actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
     void testGetGameSummarySuccess() {
         // Given
         when(service.getGameSummary()).thenReturn(summary);
-        Summary expected = summary;
+        ResponseEntity expected = ResponseEntity.status(HttpStatus.OK).body(summary);
 
         // When
-        Summary actual = controller.getGameSummary();
+        ResponseEntity actual = controller.getGameSummary();
 
         // Then
         assertThat(expected, is(actual));
     }
     @Test
-    void testGetGameSummaryNull() {
+    void testGetGameSummaryNotFound() {
         // Given
         when(service.getGameSummary()).thenReturn(null);
-
+        ResponseEntity expected = new ResponseEntity(HttpStatus.NOT_FOUND);
 
         // When
-        Summary actual = controller.getGameSummary();
+        ResponseEntity actual = controller.getGameSummary();
 
         // Then
-        assertNull(actual);
+        assertThat(expected, is(actual));
     }
 
 }
