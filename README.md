@@ -13,16 +13,24 @@ git clone https://github.com/abemyatt/Games-Service.git
 ```
 
 ## Using the program
-###Importing the project
+### Importing the project
 Import the pom.xml file contained at the root of the project (/Games-Service/pom.xml) into your preferred IDE and import the maven projects.
 
 Choose Java 8 or a higher version for the JDK to properly compile the program.
 
 ### MongoDB
-Start MongoDB on port 27017 by typing the following command
+Start MongoDB on the default port (27017) by typing the following command (Linux/Mac):
 ```
 mongod
 ```
+If on Windows, locate the mongo.exe file located in program files and run it or type the command:
+```
+"C:\Program Files\MongoDB\Server\4.2\bin\mongo.exe"
+
+```
+Replacing the filepath and 4.2 value with your filepath and mongoDB version installed
+If this fails, please refer to the [Installing MongoDB on Windows](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/) page.
+
 Create a database in MongoDB called 'gameDB' with a collection called 'games'
 
 Populate the collection with documents of the format:
