@@ -37,18 +37,24 @@ public class GameServiceImpl implements GameService {
         return repository.findAll();
     }
 
+    /**
+     * Find all of the games stored in the repository and
+     * pass the list into the methods to find summary details
+     * @return  A summary object containing the user with the most comments, highest rated game and average likes per game
+     */
     @Override
     public Summary getGameSummary() {
-        return new Summary(getUserMostComments(), highestRatedGame(), getAverageLikes());
+        List<Game> allGames = findAllGames();
+        return new Summary(getUserMostComments(allGames), highestRatedGame(allGames), getAverageLikes(allGames));
     }
 
     /**
      * Get all the games stored and store the user and their amount of comments in a map
      * Use the user as a key and the value as the amount of comments
-     * @return  The user with the most comments
+     * @param   games   all of the games found in the repository
+     * @return          The user with the most comments
      */
-    private String getUserMostComments() {
-        List<Game> games = findAllGames();
+    private String getUserMostComments(List<Game> games) {
         Map<String, Integer> userComments  = new HashMap<>();
 
         /*
@@ -81,11 +87,10 @@ public class GameServiceImpl implements GameService {
     /**
      * Find the highest rated game stored in the repository
      * based on the `likes' integer associated with a game
-     * @return  The highest rated game
+     * @param   games   all of the games found in the repository
+     * @return          The highest rated game
      */
-    private String highestRatedGame() {
-        List<Game> games = findAllGames();
-
+    private String highestRatedGame(List<Game> games) {
         // Compare all games to find the one with the highest `likes'
         Optional<Game> opt = games
                 .stream()
@@ -103,10 +108,10 @@ public class GameServiceImpl implements GameService {
 
     /**
      * Retrieve all the games and loop through each game averaging the comment likes
-     * @return  A list of AverageLike objects which contain a game title and average like
+     * @param   games   all of the games found in the repository
+     * @return          A list of AverageLike objects which contain a game title and average like
      */
-    private List<AverageLike> getAverageLikes() {
-        List<Game> games = findAllGames();
+    private List<AverageLike> getAverageLikes(List<Game> games) {
         ArrayList<AverageLike> averageLikes = new ArrayList<>();
 
         for(Game game : games) {
